@@ -190,7 +190,7 @@ def systemAnaly(request, username, sid):
                 system_waring_data_count = len(system_waring_datas)
 
                 # 数据模板
-                type_name = eval(str(system_obj.type))
+                type_name = json.loads(system_obj.type)
                 data_type = type_name.keys()
                 data_type_count = len(data_type)
 
