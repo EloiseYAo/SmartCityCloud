@@ -818,7 +818,10 @@ def newDeviceMap(request, username, sid, did):
                 if user_obj in device_obj.system.admin.all() and system_obj.platform == 'Detritus':
 
                     # 数据模板
-                    type_name = eval(str(system_obj.type))
+                    try:
+                        type_name = json.loads(system_obj.type)
+                    except (ValueError, TypeError):
+                        return HttpResponse('Invalid system template data', status=400)
                     data_type = type_name.keys()
 
                     device_map = {}
