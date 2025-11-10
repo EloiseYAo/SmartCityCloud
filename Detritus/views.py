@@ -716,7 +716,7 @@ def pushAdd(request, username, sid):
                 device_obj = Device.objects.filter(id=did)
                 if user_obj in system_obj.admin.all() or device_obj:
                     # 数据模板
-                    type_name = eval(str(system_obj.type))
+                    type_name = json.loads(system_obj.type)
                     data_type = type_name.keys()
                     data = {}
                     for type in data_type:
@@ -758,7 +758,7 @@ def pushAddAll(request, username, sid):
                 cycle = request.POST.get('Cycle')
                 if user_obj in system_obj.admin.all():
                     # 数据模板
-                    type_name = eval(str(system_obj.type))
+                    type_name = json.loads(system_obj.type)
                     data_type = type_name.keys()
                     data = {}
                     for type in data_type:
