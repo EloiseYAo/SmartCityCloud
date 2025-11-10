@@ -455,7 +455,10 @@ def dataType(request, username, sid):
             if user_obj in system_obj.admin.all() and system_obj.platform == 'Detritus':
 
                 # 数据模板
-                type_name = eval(str(system_obj.type))
+                try:
+                    type_name = json.loads(system_obj.type)
+                except Exception:
+                    type_name = {}
                 data_type = type_name.keys()
                 data_type_count = len(data_type)
 
