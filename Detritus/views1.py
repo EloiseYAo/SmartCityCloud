@@ -504,7 +504,7 @@ def systemPush(request, username, sid):
                 devices = system_obj.device.all()
 
                 # 数据模板
-                type_name = eval(str(system_obj.type))
+                type_name = json.loads(system_obj.type)
                 data_type = type_name.keys()
 
                 device_data_dict = {}
