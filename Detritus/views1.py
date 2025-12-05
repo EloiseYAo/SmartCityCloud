@@ -190,7 +190,7 @@ def systemAnaly(request, username, sid):
                 system_waring_data_count = len(system_waring_datas)
 
                 # 数据模板
-                type_name = eval(str(system_obj.type))
+                type_name = json.loads(system_obj.type)
                 data_type = type_name.keys()
                 data_type_count = len(data_type)
 
@@ -384,7 +384,10 @@ def deviceDetail(request, username, sid, did):
             if user_obj in device_obj.system.admin.all() and system_obj.platform == 'Detritus':
 
                 # 数据模板
-                type_name = eval(str(system_obj.type))
+                try:
+                    type_name = json.loads(system_obj.type)
+                except (TypeError, json.JSONDecodeError):
+                    return render(request, 'system/noDataDetail.html', locals())
                 data_type = type_name.keys()
 
                 device_map = {}
@@ -452,7 +455,10 @@ def dataType(request, username, sid):
             if user_obj in system_obj.admin.all() and system_obj.platform == 'Detritus':
 
                 # 数据模板
-                type_name = eval(str(system_obj.type))
+                try:
+                    type_name = json.loads(system_obj.type)
+                except Exception:
+                    type_name = {}
                 data_type = type_name.keys()
                 data_type_count = len(data_type)
 
@@ -498,7 +504,7 @@ def systemPush(request, username, sid):
                 devices = system_obj.device.all()
 
                 # 数据模板
-                type_name = eval(str(system_obj.type))
+                type_name = json.loads(system_obj.type)
                 data_type = type_name.keys()
 
                 device_data_dict = {}
